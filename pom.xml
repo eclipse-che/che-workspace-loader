@@ -27,7 +27,7 @@
     <scm>
         <connection>scm:git:git@github.com:eclipse/che-workspace-loader.git</connection>
         <developerConnection>scm:git:git@github.com:eclipse/che-workspace-loader.git</developerConnection>
-        <tag>6.19.0</tag>
+        <tag>HEAD</tag>
     </scm>
     <repositories>
         <repository>
