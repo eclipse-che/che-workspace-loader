@@ -24,6 +24,18 @@
     <packaging>pom</packaging>
     <name>Che Workspace Loader :: Web App</name>
     <inceptionYear>2018</inceptionYear>
+    <scm>
+        <connection>scm:git:git@github.com:eclipse/che-workspace-loader.git</connection>
+        <developerConnection>scm:git:git@github.com:eclipse/che-workspace-loader.git</developerConnection>
+        <tag>6.19.0</tag>
+    </scm>
+    <repositories>
+        <repository>
+            <id>ossrh</id>
+            <name>central public snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
     <build>
         <finalName>workspace-loader</finalName>
         <plugins>
