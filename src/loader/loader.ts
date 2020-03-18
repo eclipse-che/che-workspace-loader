@@ -10,6 +10,7 @@
  *   Red Hat, Inc. - initial API and implementation
  */
 'use strict';
+import {DEBUG_PARAM} from '../workspace-loader';
 
 export class Loader {
 
@@ -27,8 +28,6 @@ export class Loader {
 
         /** Add click handler to maximize output */
         document.getElementById('workspace-console')!.onclick = () => this.onclickConsole();
-
-        document.getElementById('workspace-loader-reload')!.onclick = () => this.onclickReload();
     }
 
     hideLoader(): void {
@@ -37,7 +36,19 @@ export class Loader {
     }
 
     showReload(): void {
-        document.getElementById('workspace-loader-reload')!.style.display = 'block';
+        const reloadEl = document.getElementById('workspace-loader-reload');
+        if (reloadEl) {
+            const {pathname, search} = window.location;
+            const isDebugMode = search.includes(DEBUG_PARAM);
+            let href: string;
+            if (search === '') {
+                href = `${pathname}?${DEBUG_PARAM}`;
+            } else {
+                href = `${pathname}${search}${!isDebugMode ? `&${DEBUG_PARAM}` : ''}`;
+            }
+            reloadEl.innerHTML = `Press F5 to try again or click <a href='${href}'>here</a> to try again${isDebugMode ? '' : ' in debug mode'}.`;
+            reloadEl.style.display = 'block';
+        }
     }
 
     /**
@@ -78,11 +89,6 @@ export class Loader {
             document.getElementById('workspace-loader')!.setAttribute('max', '');
             document.getElementById('workspace-console')!.setAttribute('max', '');
         }
-    }
-
-    onclickReload(): boolean {
-        window.location.reload();
-        return false;
     }
 
 }

@@ -39,16 +39,19 @@ module.exports = env => {
                 contentBase: path.resolve(__dirname, './target/dist'),
                 host: 'localhost',
                 port: 3000,
+                hot: true,
                 index: 'index.html',
                 historyApiFallback: true,
                 proxy: {
                     '/api/websocket': {
                         target: proxyTarget,
                         ws: true,
+                        secure: false,
                         changeOrigin: true
                     },
                     '/api': {
                         target: proxyTarget,
+                        secure: false,
                         changeOrigin: true,
                         headers: {
                             origin: proxyTarget
