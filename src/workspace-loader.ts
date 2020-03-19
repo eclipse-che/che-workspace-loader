@@ -20,6 +20,7 @@ import { Deferred } from './json-rpc/util';
 // tslint:disable:no-any
 
 const WEBSOCKET_CONTEXT = '/api/websocket';
+export const DEBUG_PARAM = 'debug=true';
 
 export class WorkspaceLoader {
 
@@ -114,8 +115,9 @@ export class WorkspaceLoader {
      * Start current workspace.
      */
     async startWorkspace(): Promise<che.workspace.Workspace> {
+        const isDebugMode = this.getQueryString().includes(DEBUG_PARAM);
         const request = new XMLHttpRequest();
-        request.open('POST', `/api/workspace/${this.workspace.id}/runtime`);
+        request.open('POST', `/api/workspace/${this.workspace.id}/runtime${isDebugMode ? '?debug-workspace-start=true' : ''}`);
         const requestWithAuth = await this.setAuthorizationHeader(request);
         return new Promise<che.workspace.Workspace>((resolve, reject) => {
             requestWithAuth.send();
@@ -127,6 +129,7 @@ export class WorkspaceLoader {
                     reject(new Error(`Failed to start the workspace: "${this.getRequestErrorMessage(requestWithAuth)}"`));
                     return;
                 }
+                resolve(JSON.parse(requestWithAuth.responseText));
                 resolve(JSON.parse(requestWithAuth.responseText));
             };
         });
