@@ -44,7 +44,11 @@ export class Loader {
             if (search === '') {
                 href = `${pathname}?${DEBUG_PARAM}`;
             } else {
-                href = `${pathname}${search}${!isDebugMode ? `&${DEBUG_PARAM}` : ''}`;
+                if (isDebugMode) {
+                    href = `${pathname}${search}`;
+                } else {
+                    href = `${pathname}${search}&${DEBUG_PARAM}`;
+                }
             }
             reloadEl.innerHTML = `Press F5 to try again or click <a href='${href}'>here</a> to try again${isDebugMode ? '' : ' in debug mode'}.`;
             reloadEl.style.display = 'block';
