@@ -39,17 +39,21 @@
     position: absolute;
     left: 0px;
     top: 0px;
-    width: 300px;
+    width: 400px;
     height: 30px;
     font-family: sans-serif;
     font-size: 14px;
     line-height: 30px;
-    text-align: center;
     color: #a0a9b7;
 }
 
 #workspace-loader-reload a {
     color: #a0a9b7;
+}
+
+#workspace-loader-reload #download-link {
+    margin-left: 15px;
+    color: #e22812;
 }
 
 #workspace-loader-progress {

@@ -13,11 +13,13 @@
 import {DEBUG_PARAM} from '../workspace-loader';
 
 export class Loader {
+    private readonly logs: string[];
 
     /**
      * Initializes the Loader.
      */
     constructor() {
+        this.logs = [];
         /** Show the loader */
         setTimeout(() => {
             document.getElementById('workspace-loader')!.style.display = 'block';
@@ -37,22 +39,32 @@ export class Loader {
 
     showReload(): void {
         const reloadEl = document.getElementById('workspace-loader-reload');
-        if (reloadEl) {
-            const {pathname, search} = window.location;
-            const isDebugMode = search.includes(DEBUG_PARAM);
-            let href: string;
-            if (search === '') {
-                href = `${pathname}?${DEBUG_PARAM}`;
-            } else {
-                if (isDebugMode) {
-                    href = `${pathname}${search}`;
-                } else {
-                    href = `${pathname}${search}&${DEBUG_PARAM}`;
-                }
-            }
-            reloadEl.innerHTML = `Press F5 to try again or click <a href='${href}'>here</a> to try again${isDebugMode ? '' : ' in debug mode'}.`;
-            reloadEl.style.display = 'block';
+        if (!reloadEl) {
+            return;
         }
+        const { pathname, search } = window.location;
+        const isDebugMode = search.includes(DEBUG_PARAM);
+        let href: string;
+        if (search === '') {
+            href = `${pathname}?${DEBUG_PARAM}`;
+        } else {
+            if (isDebugMode) {
+                href = `${pathname}${search}`;
+            } else {
+                href = `${pathname}${search}&${DEBUG_PARAM}`;
+            }
+        }
+
+        const logsBlob = new Blob(this.logs, { type: 'text/plain' });
+
+        let innerHTML = `Press F5 to try again or click <a href='${href}'>here</a> to try again`;
+        if (!isDebugMode) {
+            innerHTML += ' in debug mode';
+        }
+        innerHTML += `. <a download='logs.txt' href='${URL.createObjectURL(logsBlob)}' id='download-link'>Download logs</a>`;
+
+        reloadEl.innerHTML = innerHTML;
+        reloadEl.style.display = 'block';
     }
 
     /**
@@ -61,8 +73,9 @@ export class Loader {
      * @param message message to log
      */
     log(message: string): HTMLElement {
+        this.logs.push(`${message}\r`);
         const container = document.getElementById('workspace-console-container')!;
-        if (container.firstChild && container.childElementCount > 500) {
+        if (container.firstChild && container.childElementCount > 200) {
             container.removeChild(container.firstChild);
         }
 
