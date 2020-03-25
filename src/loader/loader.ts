@@ -57,7 +57,7 @@ export class Loader {
 
         const logsBlob = new Blob(this.logs, { type: 'text/plain' });
 
-        let innerHTML = `Press F5 to try again or click <a href='${href}'>here</a> to try again`;
+        let innerHTML = `Press F5 or click <a href='${href}'>here</a> to try again`;
         if (!isDebugMode) {
             innerHTML += ' in debug mode';
         }
