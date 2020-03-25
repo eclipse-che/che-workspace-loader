@@ -39,17 +39,21 @@
     position: absolute;
     left: 0px;
     top: 0px;
-    width: 300px;
+    width: 250px;
     height: 30px;
     font-family: sans-serif;
     font-size: 14px;
-    line-height: 30px;
     text-align: center;
+    line-height: 30px;
     color: #a0a9b7;
 }
 
 #workspace-loader-reload a {
     color: #a0a9b7;
+}
+
+#workspace-loader-reload #download-link {
+    display: inline-block;
 }
 
 #workspace-loader-progress {
@@ -127,7 +131,7 @@
 }
 
 #workspace-console[max] {
-    height: calc(100% - 110px);
+    height: calc(100% - 125px);
 }
 
 @-webkit-keyframes dancing {
