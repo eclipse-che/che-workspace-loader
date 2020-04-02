@@ -75,7 +75,7 @@ Please note, after changing deployment config you need to apply changes by rolli
 
 To be able to point new workspace loader to the test workspace it is required to add the the test workspace id to the path of workspace loader route.
 So, first, we need to retrieve the test workspace id.
-This could be done using swagger (please note, it might be disabled on production environment).
+This could be done using swagger UI.
 To open swagger just open Che dashboard and replace the path with `swagger`.
 Then navigate to `workspace` section `GET /workspace` method.
 It will return all user workspaces.
