@@ -88,7 +88,7 @@ From the response get the workspace loader server url
 The URI of workspace loader pointed to the test workspace should look like: `<workspace-loader-route>/<test-workspace-id>`.
 For example: `http://server60zomi2d-dev-server-3000.192.168.99.100.nip.io/workspaceztcx9u432labmvxi` or `http://routeu5efcg53-che.apps-crc.testing/workspaceztcx9u432labmvxi` (depending on the infrastructure on which Che is run).
 
-In most cases multiuser Che is deployed.
+In most cases, Multi-User Che is deployed.
 To permit all the required connections it's needed to edit Keycloak settings.
 Open keycloak dashboard (the route could be obtained via Kubernetes or Openshift dashboard) and navigate to `Clients`, select `che-public` and `Settings` tab.
 Then add the route with `/*` suffix into `Valid Redirect URIs` section and the original route without trailing slash into `Web Origins` section.
