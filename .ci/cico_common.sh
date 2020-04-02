@@ -104,7 +104,7 @@ mvn_deploy() {
 gitHttps2ssh(){
     #git remote set-url origin git@github.com:$(git remote get-url origin | sed 's/https:\/\/github.com\///' | sed 's/git@github.com://')
     #git version 1.8.3 not support get-url sub-command so hardcode url
-    git remote set-url origin git@github.com:eclipse/che
+    git remote set-url origin git@github.com:eclipse/che-workspace-loader
 }
 
 
@@ -126,7 +126,7 @@ releaseProject() {
     if [[ $? -eq 0 ]]; then
         echo 'Build Success!'
         echo 'Going to deploy artifacts'
-        scl enable rh-maven33 "mvn clean deploy -Pcodenvy-release -DcreateChecksum=true -DskipTests=true -Dskip-validate-sources -Dgpg.passphrase=$CHE_OSS_SONATYPE_PASSPHRASE -Darchetype.test.skip=true -Dversion.animal-sniffer.enforcer-rule=1.16"
+        scl enable rh-maven33 "mvn clean deploy -DautoReleaseAfterClose=true -Pcodenvy-release -DcreateChecksum=true -DskipTests=true -Dskip-validate-sources -Dgpg.passphrase=$CHE_OSS_SONATYPE_PASSPHRASE -Darchetype.test.skip=true -Dversion.animal-sniffer.enforcer-rule=1.16"
     else
         die_with 'Build Failed!'
     fi
