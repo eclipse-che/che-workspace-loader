@@ -319,6 +319,7 @@ export class WorkspaceLoader {
                     this.keycloak.login();
                     reject(new Error('Failed to refresh token'));
                 });
+                return;
             }
 
             resolve(xhr);
