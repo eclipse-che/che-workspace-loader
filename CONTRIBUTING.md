@@ -68,10 +68,24 @@ When workspace loader server is run, you probably need to test introduced change
 
 To safely test the changes it is better to create a separate workspace which will be used by new loader.
 But by default, Che doesn't allow to run more than one workspace simultaneously.
-To change this behaviour you need to set `che.limits.user.workspaces.run.count` Che property to value greater than `1`.
-In development environment that could be reached by adding `CHE_LIMITS_USER_WORKSPACES_RUN_COUNT` environment variable for Che server config map.
+To change this behavior you need to set `che.limits.user.workspaces.run.count` Che property to value greater than `1`.
+In development environment that could be reached by adding `CHE_LIMITS_USER_WORKSPACES_RUN_COUNT` environment variable for Che server config map ([read more about configuring Eclipse Che](https://www.eclipse.org/che/docs/che-7/advanced-configuration-options/)).
 Please note, after changing deployment config you need to apply changes by rolling out (or rescaling) the corresponding pod
-(in case of OpenShift just add the environment variable via Openshift dashboard in the `Environment` tab of the Che server deployment and the pod will be rolled out automatically).
+(in case of OpenShift just add the environment variable via OpenShift dashboard in the `Environment` tab of the Che server deployment and the pod will be rolled out automatically).
+Or, if you can login to the kubernetes cluster, you may execute following simple commands instead:
+
+*if Eclipse Che is installed using Helm:*
+
+```bash
+kubectl patch configmap che --patch "{\"spec\":{\"data\":{\"CHE_LIMITS_USER_WORKSPACES_RUN_COUNT\": \"-1\"}}}" --type=merge -n che
+kubectl rollout restart deployment/che -n che
+```
+
+*if Eclipse Che is installed using Operator:*
+
+```bash
+kubectl patch che-cluster eclipse-che -n che --patch "{\"spec\":{\"server\":{\"customCheProperties\":{\"CHE_LIMITS_USER_WORKSPACES_RUN_COUNT\": \"-1\"}}}}" --type=merge
+```
 
 To be able to point new workspace loader to the test workspace it is required to add the the test workspace id to the path of workspace loader route.
 So, first, we need to retrieve the test workspace id.
