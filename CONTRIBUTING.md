@@ -69,7 +69,7 @@ When workspace loader server is run, you probably need to test introduced change
 To safely test the changes it is better to create a separate workspace which will be used by new loader.
 But by default, Che doesn't allow to run more than one workspace simultaneously.
 To change this behaviour you need to set `che.limits.user.workspaces.run.count` Che property to value greater than `1`.
-In development environment that could be reached by adding `CHE_LIMITS_USER_WORKSPACES_RUN_COUNT` environment variable for Che server deployment.
+In development environment that could be reached by adding `CHE_LIMITS_USER_WORKSPACES_RUN_COUNT` environment variable for Che server config map.
 Please note, after changing deployment config you need to apply changes by rolling out (or rescaling) the corresponding pod
 (in case of Openshift just add the environment variable via Openshift dashboard in the `Environment` tab of the Che server deployment and the pod will be rolled out automatically).
 
