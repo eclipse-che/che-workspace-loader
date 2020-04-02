@@ -83,7 +83,7 @@ Find the test workspace id.
 Second, to modify the path of the workspace loader server uri, retrieve the route of the server.
 To do it, find workspace loader dev workspace id from the query in swagger above and use it as a key in `GET /workspace/{key}` method.
 From the response get the workspace loader server url
-(if using the given defile for workspace loader development it should be under `runtime.machines.ws-loader-dev.serevrs.dev-server.url` key).
+(if using the given defile for workspace loader development it should be under `runtime.machines.ws-loader-dev.servers.dev-server.url` key).
 
 The URI of workspace loader pointed to the test workspace should look like: `<workspace-loader-route>/<test-workspace-id>`.
 For example: `http://server60zomi2d-dev-server-3000.192.168.99.100.nip.io/workspaceztcx9u432labmvxi` or `http://routeu5efcg53-che.apps-crc.testing/workspaceztcx9u432labmvxi` (depending on the infrastructure on which Che is run).
