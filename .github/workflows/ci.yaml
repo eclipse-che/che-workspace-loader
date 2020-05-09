@@ -1,0 +1,37 @@
+#
+# Copyright (c) 2020 Red Hat, Inc.
+# This program and the accompanying materials are made
+# available under the terms of the Eclipse Public License 2.0
+# which is available at https://www.eclipse.org/legal/epl-2.0/
+#
+# SPDX-License-Identifier: EPL-2.0
+#
+name: CI
+# Trigger the workflow on push
+on:
+  push:
+    branches:
+      - master
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_FULL: quay.io/eclipse/che-workspace-loader:next
+      CACHE_IMAGE_FULL: docker.io/cheincubator/che-workspace-loader:cache
+    steps:
+    - uses: actions/checkout@v2
+      name: Checkout che-workspace-loader source code
+    - name: Docker Buildx
+      uses: crazy-max/ghaction-docker-buildx@v1.4.0
+      with:
+        version: v0.3.1
+    - name: "Docker prepare"
+      run: docker image prune -a -f
+    - name: "Docker Quay.io Login"
+      run:  docker login -u "${{ secrets.QUAY_USERNAME }}" -p "${{ secrets.QUAY_PASSWORD }}" quay.io
+    - name: "Docker docker.io Login"
+      run:  docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" -p "${{ secrets.DOCKERHUB_PASSWORD }}" docker.io
+    - name: "Docker build"
+      run: docker buildx build --platform linux/amd64 --cache-from="type=registry,ref=${CACHE_IMAGE_FULL}" --cache-to="type=registry,ref=${CACHE_IMAGE_FULL},mode=max" -t ${IMAGE_FULL}  -f apache.Dockerfile --push .
+    - name: "Docker Logout"
+      run: docker logout
