@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IMAGE_FULL: quay.io/eclipse/che-workspace-loader:next
+      CACHE_IMAGE_FULL: docker.io/cheincubator/che-workspace-loader:cache
     steps:
     - uses: actions/checkout@v2
       name: Checkout che-workspace-loader source code
