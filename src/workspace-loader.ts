@@ -287,10 +287,6 @@ export class WorkspaceLoader {
             }
         }
 
-        if (workspace.links) {
-            this.openURL(workspace.links.ide + this.getQueryString());
-        }
-
         throw new Error('Don\'t know what to open, IDE url is not defined.');
     }
 
