@@ -21,7 +21,11 @@
     </parent>
     <groupId>org.eclipse.che.workspace.loader</groupId>
     <artifactId>che-workspace-loader</artifactId>
+<<<<<<< HEAD
     <version>7.17.0-SNAPSHOT</version>
+=======
+    <version>7.16.1-SNAPSHOT</version>
+>>>>>>> dc54f5452d67091df7fe7375e8a2d8741b09460b
     <packaging>pom</packaging>
     <name>Che Workspace Loader :: Web App</name>
     <inceptionYear>2018</inceptionYear>
