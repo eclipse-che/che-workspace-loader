@@ -20,6 +20,10 @@ import { che } from '@eclipse-che/api';
 
 // tslint:disable:no-any
 
+beforeAll(() => {
+    window.URL.createObjectURL = jest.fn();
+});
+
 let loader: Loader;
 let workspaceLoader: WorkspaceLoader;
 let workspaceConfig: che.workspace.Workspace;
@@ -42,29 +46,6 @@ beforeEach(function () {
         links: {
             ide: 'test url'
         },
-        config: {
-            defaultEnv: 'default',
-            environments: {
-                default: {
-                    machines: {
-                        machine: {
-                            servers: {
-                                server1: {
-                                    attributes: {
-                                        type: 'ide'
-                                    },
-                                    port: '0',
-                                    protocol: ''
-                                }
-                            }
-                        },
-                    },
-                    recipe: {
-                        type: ''
-                    }
-                }
-            }
-        }
     } as che.workspace.Workspace;
 
     loader = new Loader();
@@ -154,8 +135,20 @@ describe('If an IDE server is not defined in workspace config then workspace-loa
         spyOn(workspaceLoader, 'getWorkspace').and.callFake(() =>
             new Promise(resolve => {
                 workspaceConfig.status = 'RUNNING';
-                workspaceConfig.config!.environments!['default'].machines = {};
-                workspaceConfig.runtime = {} as che.workspace.Runtime;
+                workspaceConfig.runtime = {
+                    machines: {
+                        'theia-ide': {
+                            servers: {
+                                'theia': {
+                                    attributes: {
+                                        type: 'ide',
+                                    },
+                                    url: 'test url'
+                                }
+                            }
+                        }
+                    }
+                };
                 resolve(workspaceConfig);
             }));
 
@@ -242,7 +235,7 @@ describe('If workspace status is STOPPED then workspace-loader', () => {
 });
 
 // test intensional stopping of a workspace
-describe.only('If workspace status is changed from STARTING to STOPPING then workspace-loader', () => {
+describe('If workspace status is changed from STARTING to STOPPING then workspace-loader', () => {
     let statusChangeCallback: (event: che.workspace.event.WorkspaceStatusEvent) => {};
     const statusStoppingEvent: che.workspace.event.WorkspaceStatusEvent = {
         status: 'STOPPING',
@@ -293,7 +286,7 @@ describe.only('If workspace status is changed from STARTING to STOPPING then wor
         status: 'STOPPED',
         prevStatus: 'STOPPING'
     };
-    it.only('should not start the workspace', () => {
+    it('should not start the workspace', () => {
         expect(workspaceLoader.startWorkspace).not.toHaveBeenCalled();
     });
 });
