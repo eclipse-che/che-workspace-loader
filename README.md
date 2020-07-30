@@ -1,4 +1,4 @@
-![CI](https://github.com/eclipse/che-workspace-loader/workflows/CI/badge.svg)
+![Next dockerimage](https://github.com/eclipse/che-workspace-loader/workflows/CI/badge.svg)
 
 `che-workspace-loader` is sub-project of [Eclipse Che](https://github.com/eclipse/che) project.
 
