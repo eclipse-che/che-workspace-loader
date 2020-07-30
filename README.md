@@ -1,6 +1,4 @@
-[![Master Build Status](https://ci.centos.org/buildStatus/icon?subject=master&job=devtools-che-workspace-loader-che-build-master)](https://ci.centos.org/job/devtools-che-workspace-loader-che-build-master/)
-[![Nightly Build Status](https://ci.centos.org/buildStatus/icon?subject=nightly&job=devtools-che-workspace-loader-che-nightly)](https://ci.centos.org/job/devtools-che-workspace-loader-che-nightly/)
-[![Release Build Status](https://ci.centos.org/buildStatus/icon?subject=release&job=devtools-che-workspace-loader-che-release)](https://ci.centos.org/job/devtools-che-workspace-loader-che-release/)
+![Next dockerimage](https://github.com/eclipse/che-workspace-loader/workflows/CI/badge.svg)
 
 `che-workspace-loader` is sub-project of [Eclipse Che](https://github.com/eclipse/che) project.
 
