@@ -19,7 +19,6 @@ NOCOMMIT=0
 while [[ "$#" -gt 0 ]]; do
   case $1 in
     '-t'|'--trigger-release') TRIGGER_RELEASE=1; NOCOMMIT=0; shift 0;;
-    '-r'|'--repo') REPO="$2"; shift 1;;
     '-v'|'--version') VERSION="$2"; shift 1;;
     '-n'|'--no-commit') NOCOMMIT=1; TRIGGER_RELEASE=0; shift 0;;
   esac
@@ -64,7 +63,7 @@ usage ()
   echo "Example: $0 --repo git@github.com:eclipse/che-subproject --version 7.7.0 --trigger-release"; echo
 }
 
-if [[ ! ${VERSION} ]] || [[ ! ${REPO} ]]; then
+if [[ ! ${VERSION} ]]; then
   usage
   exit 1
 fi
