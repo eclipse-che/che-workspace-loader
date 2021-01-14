@@ -1,6 +1,6 @@
 {
   "name": "che-workspace-loader",
-  "version": "7.24.2",
+  "version": "7.24.3-SNAPSHOT",
   "description": "Eclipse Che Workspace Loader App",
   "main": "index.js",
   "scripts": {
